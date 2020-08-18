@@ -16,3 +16,12 @@ deploy_key=~/ton-keys/$hostname.1.keys.json
 raw_addr=$(./tonos-cli genaddr ~/net.ton.dev/configs/SafeMultisigWallet.tvc ~/net.ton.dev/configs/SafeMultisigWallet.abi.json --setkey $deploy_key --wc 0)
         echo "$raw_addr" | awk 'FNR == 9 {print $3}' > ~/ton-keys/$hostname.addr
 done
+
+proxy0_seed_phrase=$(./tonos-cli genphrase | awk 'FNR == 3' | sed 's/^.\{13\}//')
+       echo "${proxy0_seed_phrase}" > ~/ton-keys/$hostname.proxy0.seed.csv
+proxy1_seed_phrase=$(./tonos-cli genphrase | awk 'FNR == 3' | sed 's/^.\{13\}//')
+       echo "${proxy1_seed_phrase}" > ~/ton-keys/$hostname.proxy1.seed.csv
+depool_seed_phrase=$(./tonos-cli genphrase | awk 'FNR == 3' | sed 's/^.\{13\}//')
+       echo "${depool_seed_phrase}" > ~/ton-keys/$hostname.depool.seed.csv
+helper_seed_phrase=$(./tonos-cli genphrase | awk 'FNR == 3' | sed 's/^.\{13\}//')
+       echo "${helper_seed_phrase}" > ~/ton-keys/$hostname.helper.seed.csv
