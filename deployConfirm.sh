@@ -1,5 +1,8 @@
 #!/bin/bash
 
+username=$(whoami)
+hostname=$(hostname -s)
+
 n=$(cat ~/ton-keys/deploy.confirm.txid | wc -l)
 
 for (( i = 1; i <= n; i++ ));
