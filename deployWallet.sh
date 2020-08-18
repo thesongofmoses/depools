@@ -24,22 +24,22 @@ helper_addr=$(cat ~/ton-keys/$hostname.helper.addr)
         submitTransaction "{"\"dest"\":"\"${proxy0_addr}"\","\"value"\":200000000,"\"bounce"\":false,"\"allBalance"\":false,"\"payload"\":"\""\"}" \
         --abi ~/net.ton.dev/configs/SafeMultisigWallet.abi.json \
         --sign ~/ton-keys/$hostname.1.keys.json \
-        | awk 'FNR == 18 {prtint $2}' | tr -d '"' > deploy.confirm.txid
+        | awk 'FNR == 18 {prtint $2}' | tr -d '"' > ~/ton-keys/deploy.confirm.txid
 
 ./tonos-cli call $deploy_addr \
         submitTransaction "{"\"dest"\":"\"${proxy1_addr}"\","\"value"\":200000000,"\"bounce"\":false,"\"allBalance"\":false,"\"payload"\":"\""\"}" \
         --abi ~/net.ton.dev/configs/SafeMultisigWallet.abi.json \
         --sign ~/ton-keys/$hostname.1.keys.json \
-        | awk 'FNR == 18 {prtint $2}' | tr -d '"' >> deploy.confirm.txid
+        | awk 'FNR == 18 {prtint $2}' | tr -d '"' >> ~/ton-keys/deploy.confirm.txid
 
 ./tonos-cli call $deploy_addr \
         submitTransaction "{"\"dest"\":"\"${depool_addr}"\","\"value"\":200000000,"\"bounce"\":false,"\"allBalance"\":false,"\"payload"\":"\""\"}" \
         --abi ~/net.ton.dev/configs/SafeMultisigWallet.abi.json \
         --sign ~/ton-keys/$hostname.1.keys.json \
-        | awk 'FNR == 18 {prtint $2}' | tr -d '"' >> deploy.confirm.txid
+        | awk 'FNR == 18 {prtint $2}' | tr -d '"' >> ~/ton-keys/deploy.confirm.txid
 
 ./tonos-cli call $deploy_addr \
         submitTransaction "{"\"dest"\":"\"${helper_addr}"\","\"value"\":200000000,"\"bounce"\":false,"\"allBalance"\":false,"\"payload"\":"\""\"}" \
         --abi ~/net.ton.dev/configs/SafeMultisigWallet.abi.json \
         --sign ~/ton-keys/$hostname.1.keys.json \
-        | awk 'FNR == 18 {prtint $2}' | tr -d '"' >> deploy.confirm.txid
+        | awk 'FNR == 18 {prtint $2}' | tr -d '"' >> ~/ton-keys/deploy.confirm.txid
