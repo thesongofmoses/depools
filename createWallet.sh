@@ -44,3 +44,9 @@ depool_deploy_key=~/ton-keys/$hostname.depool.keys.json
 depool_raw_addr=$(./tonos-cli genaddr ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePool.tvc ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePool.abi.json --setkey $depool_deploy_key)
         echo "$depool_raw_addr" | awk 'FNR == 9 {print $3}' > ~/ton-keys/$hostname.depool.addr
         cp ~/ton-keys/$hostname.depool.addr ~/ton-keys/depool.addr
+
+parsed_helper_seed_phrase=$(cat ~/ton-keys/$hostname.helper.seed.csv | tr -d '"')
+        ./tonos-cli getkeypair ~/ton-keys/$hostname.helper.keys.json "$parsed_depool_seed_phrase"
+helper_deploy_key=~/ton-keys/$hostname.helper.keys.json
+helper_raw_addr=$(./tonos-cli genaddr ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolHelper.tvc ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolHelper.abi.json --setkey $helper_deploy_key)
+        echo "$helper_raw_addr" | awk 'FNR == 9 {print $3}' > ~/ton-keys/$hostname.helper.addr
