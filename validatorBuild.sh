@@ -18,11 +18,12 @@ cd net.ton.dev/scripts && \
 ./build.sh && \
 
 #run
+export NETWORK_TYPE='net.ton.dev'
 ./setup.sh && \
 ./run.sh && \
 
 #set configs for tonos-cli
-cd ~/net.ton.dev/tonos-cli/target/release/ && ./tonos-cli config --url https://"${1}".ton.dev --wc -1 && \
+cd ~/net.ton.dev/tonos-cli/target/release/ && ./tonos-cli config --url https://net.ton.dev --wc -1 && \
 cp ~/net.ton.dev/tonos-cli/target/release/tonlabs-cli.conf.json ~/net.ton.dev/scripts/tonlabs-cli.conf.json \
 
 #echo node versions
