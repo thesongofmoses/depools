@@ -100,7 +100,18 @@ then
         --sign ~/ton-keys/$hostname.2.keys.json
 fi
 
-if [ "${1}" == 'withdraw' ];
+if [ "${1}" == 'withdraw' ] && [ "${2}" == '--help' ];
 then
-        ./tonos-cli depool withdraw off
+        echo 'Usage: ./stake.sh withdraw <on or off>'
+        echo 'Info: on to receive the stakes once unlocked, off to automatically restake'
+
+elif [ "${1}" == 'withdraw' ];
+then
+        ./tonos-cli depool withdraw "${2}" | grep transId | awk '{print $2}' | tr -d '"' > ~/ton-keys/withdraw.confirm.txid
+
+        withdraw_txid=$(cat ~/ton-keys/withdraw.confirm.txid)
+        ./tonos-cli call $deploy_addr \
+                confirmTransaction "{"\"transactionId"\":"\"$withdraw_txid"\"}" \
+                --abi ~/net.ton.dev/configs/SafeMultisigWallet.abi.json \
+                --sign ~/ton-keys/$hostname.2.keys.json
 fi
