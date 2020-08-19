@@ -41,7 +41,7 @@ proxy1_raw_addr=$(./tonos-cli genaddr ~/net.ton.dev/ton-labs-contracts/solidity/
 parsed_depool_seed_phrase=$(cat ~/ton-keys/$hostname.depool.seed.csv | tr -d '"')
         ./tonos-cli getkeypair ~/ton-keys/$hostname.depool.keys.json "$parsed_depool_seed_phrase"
 depool_deploy_key=~/ton-keys/$hostname.depool.keys.json
-depool_raw_addr=$(./tonos-cli genaddr ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePool.tvc ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePool.abi.json --setkey $depool_deploy_key --wc 0)
+depool_raw_addr=$(./tonos-cli genaddr ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePool.tvc ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePool.abi.json --setkey $depool_deploy_key)
         echo "$depool_raw_addr" | awk 'FNR == 9 {print $3}' > ~/ton-keys/$hostname.depool.addr
         cp ~/ton-keys/$hostname.depool.addr ~/ton-keys/depool.addr
 
