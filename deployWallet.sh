@@ -74,4 +74,4 @@ withdraw_txid=$(cat ~/ton-keys/withdraw.confirm.txid)
         --abi ~/net.ton.dev/configs/SafeMultisigWallet.abi.json \
         --sign ~/ton-keys/$hostname.2.keys.json
 
-echo 'Deploy Succeeded"
+echo 'Deploy Succeeded'
