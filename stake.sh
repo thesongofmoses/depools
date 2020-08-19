@@ -85,9 +85,9 @@ then
         fi
 
 if [ "${1}" == 'transfer' ] && [ "${2}" == '--help' ];
-        then
-                echo 'Usage: ./stake.sh transfer <value> <dest>'
-                exit 0
+then
+        echo 'Usage: ./stake.sh transfer <value> <dest>'
+        exit 0
 
         elif [ "${1}" == 'transfer' ];
         then
