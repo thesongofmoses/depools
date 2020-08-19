@@ -65,3 +65,13 @@ cd ~/net.ton.dev/tonos-cli/target/release
         --sign ~/ton-keys/$hostname.helper.keys.json
 
 ./tonos-cli config --addr $depool_addr --wallet $deploy_addr --keys ~/ton-keys/$hostname.1.keys.json --retries 10 --timeout 120000
+
+./tonos-cli depool withdraw off | grep transId | awk '{print $2}' | tr -d '"' > ~/ton-keys/withdraw.confirm.txid
+
+withdraw_txid=$(cat ~/ton-keys/withdraw.confirm.txid)
+./tonos-cli call $deploy_addr \
+        confirmTransaction "{"\"transactionId"\":"\"$withdraw_txid"\"}" \
+        --abi ~/net.ton.dev/configs/SafeMultisigWallet.abi.json \
+        --sign ~/ton-keys/$hostname.2.keys.json
+        
+echo 'Deploy Succeeded"
