@@ -62,3 +62,5 @@ done
         initTimer '{"timer":"0:325e835960b83108ed594e395167c967bfc0ede9e7ef057aae364b1c0ab75467","period":360}' \
         --abi ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolHelper.abi.json \
         --sign ~/ton-keys/$hostname.helper.keys.json
+        
+./tonos-cli config --addr $depool_addr --wallet $deploy_addr --keys ~/ton-keys/$hostname.1.keys.json --retries 10 --timeout 120000
