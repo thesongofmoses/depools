@@ -57,3 +57,11 @@ done
 ./tonos-cli deploy ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolProxy.tvc "{"\"depool"\":"\"$depool_addr"\"}" --abi ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolProxy.abi.json --sign ~/ton-keys/$hostname.proxy1.keys.json --wc -1
 ./tonos-cli deploy ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePool.tvc "{"\"minRoundStake"\":100000000000000,"\"proxy0"\":"\"$proxy0_addr"\","\"proxy1"\":"\"$proxy1_addr"\","\"validatorWallet"\":"\"$deploy_addr"\","\"minStake"\":50000000000}" --abi ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePool.abi.json --sign ~/ton-keys/$hostname.depool.keys.json --wc 0
 ./tonos-cli deploy ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolHelper.tvc "{"\"pool"\":"\"$depool_addr"\"}" --abi ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolHelper.abi.json --sign ~/ton-keys/$hostname.helper.keys.json --wc 0
+
+cd ~/net.ton.dev/tonos-cli/target/release
+./tonos-cli call $helper_addr \
+        initTimer '{"timer":"0:325e835960b83108ed594e395167c967bfc0ede9e7ef057aae364b1c0ab75467","period":360}' \
+        --abi ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolHelper.abi.json \
+        --sign ~/ton-keys/$hostname.helper.keys.json
+
+./tonos-cli config --addr $depool_addr --wallet $deploy_addr --keys ~/ton-keys/$hostname.1.keys.json --retries 10 --timeout 120000
