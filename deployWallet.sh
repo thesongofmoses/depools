@@ -43,3 +43,18 @@ helper_addr=$(cat ~/ton-keys/$hostname.helper.addr)
         --abi ~/net.ton.dev/configs/SafeMultisigWallet.abi.json \
         --sign ~/ton-keys/$hostname.1.keys.json \
         | awk 'FNR == 18 {prtint $2}' | tr -d '"' >> ~/ton-keys/deploy.confirm.txid
+
+n=$(cat ~/ton-keys/deploy.confirm.txid | wc -l)
+deploy_addr=$(cat ~/ton-keys/$hostname.addr)
+
+for (( i = 1; i <= n; i++ ))
+do
+txid=$(cat ~/ton-keys/deploy.confirm.txid | awk "FNR == ${i}")
+./tonos-cli call $deploy_addr \
+        confirmTransaction "{"\"transactionId"\":"\"$txid"\"}" \
+        --abi ~/net.ton.dev/configs/SafeMultisigWallet.abi.json \
+        --sign ~/ton-keys/$hostname.2.keys.json
+done
+
+./tonos-cli deploy ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolProxy.tvc "{"\"depool":"$depool_addr"\"}" --abi ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolProxy.abi.json --sign ~/ton-keys/$hostname.proxy0.keys.json --wc -1
+./tonos-cli deploy ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolProxy.tvc "{"\"depool":"$depool_addr"\"}" --abi ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolProxy.abi.json --sign ~/ton-keys/$hostname.proxy1.keys.json --wc -1
