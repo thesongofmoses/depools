@@ -12,6 +12,7 @@ seed_phrase=$(./tonos-cli genphrase | awk 'FNR == 3' | sed 's/^.\{13\}//')
        echo "${seed_phrase}" >> ~/ton-keys/$hostname.seed.csv
 parsed_seed_phrase=$(cat ~/ton-keys/$hostname.seed.csv | awk "FNR == ${i}" | tr -d '"')
         ./tonos-cli getkeypair ~/ton-keys/$hostname.${i}.keys.json "$parsed_seed_phrase"
+        cp ~/ton-keys/$hostname.1.keys.json ~/ton-keys/msig.keys.json
 deploy_key=~/ton-keys/$hostname.1.keys.json
 raw_addr=$(./tonos-cli genaddr ~/net.ton.dev/configs/SafeMultisigWallet.tvc ~/net.ton.dev/configs/SafeMultisigWallet.abi.json --setkey $deploy_key --wc 0)
         echo "$raw_addr" | awk 'FNR == 9 {print $3}' > ~/ton-keys/$hostname.addr
