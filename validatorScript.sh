@@ -7,6 +7,10 @@ cd ~/net.ton.dev/tonos-cli/target/release
 helper_addr=$(cat ~/ton-keys/$hostname.helper.addr)
 ./tonos-cli call $helper_addr sendTicktock {} --abi ~/net.ton.dev/ton-labs-contracts/solidity/depool/DePoolHelper.abi.json --sign ~/ton-keys/$hostname.helper.keys.json
 
+sleep_by='45'
+sleep_delay='75'
+sleep $(($RANDOM% $sleep_by+$sleep_delay))
+
 cd ~/net.ton.dev/scripts && ./validator_depool.sh | grep transId | awk '{print $2}' | tr -d '"' > ~/ton-keys/validator.confirm.txid
 
 deploy_addr=$(cat ~/ton-keys/$hostname.addr)
