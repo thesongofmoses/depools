@@ -13,7 +13,7 @@ cd ~/net.ton.dev/tonos-cli/target/release
 if [ "${1}" == '--help' ];
 then
         echo 'Usage: ./stake.sh <subcommand> <arg>'
-        echo 'Options: --ordinary --vesting --lock --transfer --withdraw --remove'
+        echo 'Options: ordinary, vesting, lock, transfer, withdraw, remove'
         exit 0
 fi
 
